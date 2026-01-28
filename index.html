@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arizona UCC Article 3 - NI Tender Letter Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #1e3c72;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+            font-size: 13px;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #1e3c72;
+        }
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #1e3c72;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #2a5298;
+        }
+        #output {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            border: 2px solid #1e3c72;
+        }
+        #letterContent {
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            line-height: 1.6;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .copy-btn {
+            margin-top: 15px;
+            background: #27ae60;
+        }
+        .copy-btn:hover {
+            background: #229954;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 12px;
+        }
+        .warning strong {
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏛️ Arizona UCC Article 3 - NI Tender Letter Generator</h1>
+        <p class="subtitle">Negotiable Instrument Tender with Presumptions & Full Satisfaction Language</p>
+        
+        <div class="warning">
+            <strong>⚠️ Instructions:</strong> Fill in all fields below. This generator creates a certified-mail tender letter based on Arizona Revised Statutes Title 47 (UCC Article 3). Endorse your billing statement in BLUE INK on the back with: "Qualified endorsement – without recourse – endorsed in blank" + your signature, then mail with this letter via certified mail.
+        </div>
+
+        <form id="letterForm">
+            <div class="form-group">
+                <label for="yourName">Your Full Name *</label>
+                <input type="text" id="yourName" required placeholder="Brandon Joe Williams">
+            </div>
+
+            <div class="form-group">
+                <label for="yourAddress">Your Mailing Address *</label>
+                <input type="text" id="yourAddress" required placeholder="123 Main St, Golden Valley, AZ 86413">
+            </div>
+
+            <div class="form-group">
+                <label for="creditorName">Utility/Creditor Legal Name *</label>
+                <input type="text" id="creditorName" required placeholder="UniSource Energy Services">
+            </div>
+
+            <div class="form-group">
+                <label for="creditorAddress">Utility/Creditor Address *</label>
+                <input type="text" id="creditorAddress" required placeholder="Billing Dept, P.O. Box 711, Tucson, AZ 85702">
+            </div>
+
+            <div class="form-group">
+                <label for="accountNumber">Account Number *</label>
+                <input type="text" id="accountNumber" required placeholder="123456789">
+            </div>
+
+            <div class="form-group">
+                <label for="billDate">Bill Date *</label>
+                <input type="date" id="billDate" required>
+            </div>
+
+            <div class="form-group">
+                <label for="amountClaimed">Amount Claimed by Creditor *</label>
+                <input type="text" id="amountClaimed" required placeholder="520.00">
+            </div>
+
+            <div class="form-group">
+                <label for="shutoffDate">Shutoff Date (if applicable)</label>
+                <input type="date" id="shutoffDate">
+            </div>
+
+            <div class="form-group">
+                <label for="additionalNotes">Additional Notes (Optional)</label>
+                <textarea id="additionalNotes" placeholder="Any additional information you want to include..."></textarea>
+            </div>
+
+            <button type="submit">Generate Tender Letter</button>
+        </form>
+
+        <div id="output">
+            <div id="letterContent"></div>
+            <button class="copy-btn" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('letterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            generateLetter();
+        });
+
+        function generateLetter() {
+            const yourName = document.getElementById('yourName').value;
+            const yourAddress = document.getElementById('yourAddress').value;
+            const creditorName = document.getElementById('creditorName').value;
+            const creditorAddress = document.getElementById('creditorAddress').value;
+            const accountNumber = document.getElementById('accountNumber').value;
+            const billDate = document.getElementById('billDate').value;
+            const amountClaimed = document.getElementById('amountClaimed').value;
+            const shutoffDate = document.getElementById('shutoffDate').value;
+            const additionalNotes = document.getElementById('additionalNotes').value;
+
+            const today = new Date().toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+
+            const formattedBillDate = new Date(billDate).toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+
+            let shutoffText = '';
+            if (shutoffDate) {
+                const formattedShutoffDate = new Date(shutoffDate).toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                shutoffText = `\n\nOn ${formattedShutoffDate}, you disconnected service for this account, causing actual damages including lost workday(s), loss of use of the premises, and associated costs. This action was taken despite my good-faith tender(s) and without proper dishonor under Article 3.`;
+            }
+
+            let additionalText = '';
+            if (additionalNotes.trim()) {
+                additionalText = `\n\n${additionalNotes}`;
+            }
+
+            const letter = `${yourName}
+${yourAddress}
+
+${today}
+
+To: ${creditorName}
+    ${creditorAddress}
+
+Re: Account #${accountNumber}, Draft dated ${formattedBillDate} – Tender as Full Satisfaction
+
+Enclosed is the original billing statement (the "draft") for account #${accountNumber}.
+
+I have endorsed this draft with a qualified and blank endorsement and tender it back to you as a negotiable instrument in FULL SATISFACTION of your claim on this account, pursuant to Arizona Revised Statutes Title 47, Article 3 (including A.R.S. § 47-3311, accord and satisfaction by use of instrument, and A.R.S. § 47-3104, definition of negotiable instrument).
+
+The enclosed draft is:
+- an UNCONDITIONAL ORDER TO PAY,
+- signed "when issued" by your symbol/logo and identifying text under A.R.S. § 47-1201 (any symbol adopted with intent to authenticate a writing), and
+- payable on demand/by default under A.R.S. § 47-3104 and § 47-3108.
+
+This tender is made in GOOD FAITH and the accompanying written communication (this letter) contains a CONSPICUOUS STATEMENT that the instrument is tendered as FULL SATISFACTION OF THE CLAIM, satisfying the requirements of A.R.S. § 47-3311(b).
+
+If you contend this instrument is not acceptable, you must TIMELY DISHONOR it in accordance with A.R.S. § 47-3502 and § 47-3603; otherwise, the claim is discharged and the obligation satisfied.
+
+═══════════════════════════════════════════════════════
+PRESUMPTIONS AND COMMERCIAL-CODE STATUS – ARIZONA
+═══════════════════════════════════════════════════════
+
+1. Under A.R.S. § 47-1201, including the Uniform Commercial Code definition of "signed", I treat your logo, trade name, and identifying symbols printed on each billing statement as a SIGNATURE executed or adopted with the intention to authenticate that record.
+
+2. Under A.R.S. § 47-3104 and related Article 3 provisions, I treat each billing statement that demands payment of a stated amount of money as an UNCONDITIONAL ORDER TO PAY A FIXED AMOUNT OF MONEY and therefore as a NEGOTIABLE INSTRUMENT, with statutory defaults that it is payable to bearer/order and on demand unless expressly stated otherwise.
+
+3. Under Title 47 and the Uniform Commercial Code rule on PRESUMPTIONS, when the Code creates or recognizes a presumption, the trier of fact must find the existence of the presumed fact unless evidence is introduced that supports a finding of its nonexistence. I therefore PRESUME that each billing statement you send me is a signed, unconditional order to pay (a negotiable instrument) with intrinsic legal value, unless you produce evidence to rebut that presumption.
+
+4. When I endorse that billing statement in blank with a qualified endorsement and tender it back to you with a conspicuous statement that it is offered in FULL SATISFACTION of your claim, I treat that tender as governed by Article 3 (including the A.R.S. § 47-3311 rule for accord and satisfaction by instrument and the Article 3 rules on dishonor and tender of payment).
+
+5. I therefore PRESUME the underlying claim is DISCHARGED unless you timely dishonor the instrument or return it in compliance with the applicable Article 3 provisions on dishonor and tender of payment. Mere policy statements or internal preferences are not evidence and do not rebut these presumptions.${shutoffText}${additionalText}
+
+Please adjust your records accordingly and cease any collection or "past due" reporting on this account as to the enclosed draft.
+
+I reserve all rights and remedies under applicable law.
+
+Sincerely,
+
+___________________________
+${yourName}
+
+
+═══════════════════════════════════════════════════════
+CERTIFIED MAIL TRACKING: ___________________________
+
+ENCLOSURES:
+- Original billing statement, endorsed in blank
+- This letter
+═══════════════════════════════════════════════════════`;
+
+            document.getElementById('letterContent').textContent = letter;
+            document.getElementById('output').style.display = 'block';
+            document.getElementById('output').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function copyToClipboard() {
+            const content = document.getElementById('letterContent').textContent;
+            navigator.clipboard.writeText(content).then(() => {
+                alert('✅ Letter copied to clipboard! Paste into a word processor, print, sign, and mail with your endorsed bill via certified mail.');
+            }).catch(err => {
+                alert('❌ Failed to copy. Please manually select and copy the text.');
+            });
+        }
+    </script>
+</body>
+</html>
